@@ -1,0 +1,319 @@
+\chapter{Richiami algebrici}
+\section{Singular Value Decomposition (SVD)}
+\paragraph{}
+Sia una matrica $A\in\mathbb{R}^{m\times n}$, essa può essere fattorizzata come segue:
+\begin{equation}
+	A = U \Sigma V^T
+\end{equation}
+
+con:
+\begin{itemize}
+	\item $U = 
+	\begin{bmatrix}
+		\,\underline{u_1} & \cdots & \underline{u_m}\,
+	\end{bmatrix} 
+	\in\mathbb{R}^{m \times m}$, i vettori $\underline{u_1}\,\cdots\,\underline{u_m}$ vengono chiamati \emph{vettori singolari sinistri}.
+	\item $\Sigma\in\mathbb{R}^{m \times n}$ diagonale ma non quadrata, quindi possiede elementi non nulli solo quando gli indici di riga e colonna coincidono:
+	\begin{equation*}
+		\Sigma = 
+		\begin{bmatrix}
+			\sigma_1 & \cdots & 0 & 0 \\
+			\vdots & \ddots & 0 & \vdots \\
+			0 & \cdots & \sigma_p & 0 \\
+		\end{bmatrix}
+		\qquad \text{oppure} \qquad
+		\Sigma = 
+		\begin{bmatrix}
+			\sigma_1 & \cdots & 0 \\
+			\vdots & \ddots & 0 \\
+			0 & \cdots & \sigma_p \\
+			0 & \cdots & 0 \\
+		\end{bmatrix}
+	\end{equation*}
+	
+	scegliendo $p = min \lbrace m,n \rbrace$, otteniamo che $\sigma_1 \geqslant \sigma_2 \geqslant \cdots \geqslant \sigma_p \geqslant 0$ sono i \emph{valori singolari} di $A$.
+	\item $V = 
+	\begin{bmatrix}
+		\,\underline{v_1} & \cdots & \underline{v_n}\,
+	\end{bmatrix} \in\mathbb{R}^{n \times n}$ matrice dei \emph{vettori singolari destri}.
+\end{itemize}
+
+Si può dimostrare che il rango della matrice $A$ è uguale al rango della matrice $	\Sigma$, in particolare si osserva che il rango di $\Sigma$ dipende dai \emph{valori singolari} ed è proprio uguale al numero di valori singolari diversi da zero. 
+\paragraph{}
+Sia $m<n$, scriviamo la matrice $A$:
+\begin{equation}
+	A = 
+	\underbrace{
+	\begin{bmatrix}
+		u_1 & \cdots & u_m
+	\end{bmatrix}
+	}_{\in\mathbb{R}^{m\times m}}
+	\cdot
+	\underbrace{
+	\begin{bmatrix}
+		\sigma_1 & \cdots & 0 & 0 \\
+		0 & \ddots & 0 & \vdots \\
+		0 & \cdots & \sigma_p & 0 \\ 
+	\end{bmatrix}
+	}_{\in\mathbb{R}^{m\times n}}
+	\cdot
+	\underbrace{
+	\begin{bmatrix}
+		v_1^T \\
+		\vdots \\
+		v_n^T \\
+	\end{bmatrix}
+	}_{\in \mathbb{R}^{n \times n}}
+\end{equation}
+
+supponiamo che $rank(A) = r$, allora si ha che solo $r$ elementi dei valori singolari sono diversi da zero, ovvero, $\underbrace{\sigma_1, \cdots, \sigma_r}_{\neq 0}, \underbrace{\sigma_{r+1}, \cdots, \sigma_p}_{= 0}$, con $r\leqslant p$.
+Otteniamo:
+\begin{equation}
+	A = 
+	\underbrace{
+	\begin{bmatrix}
+		u_{11} & u_{12} & \cdots & u_{1r} \\
+		u_{21} & u_{22} & \cdots & u_{2r} \\ 
+		\vdots & \vdots & \ddots & \vdots \\
+		u_{m1} & u_{m2} & \cdots & u_{mr} 
+	\end{bmatrix}
+	}_{\in\mathbb{R}^{m \times r}}
+	\cdot
+	\underbrace{
+	\begin{bmatrix}
+		\sigma_{1} & 0 & \cdots & 0 \\
+		0 & \sigma_{2} & \cdots & 0 \\ 
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & 0 & \cdots & \sigma_{r} 
+	\end{bmatrix}
+	}_{\in\mathbb{R}^{r \times r}}
+	\cdot
+	\underbrace{
+	\begin{bmatrix}
+		v_{11} & v_{12} & \cdots & v_{1n} \\
+		v_{21} & v_{22} & \cdots & v_{2n} \\ 
+		\vdots & \vdots & \ddots & \vdots \\
+		v_{r1} & v_{r2} & \cdots & v_{rn} 
+	\end{bmatrix}
+	}_{= V^{T}\in\mathbb{R}^{r \times n}}
+\end{equation}
+
+in pratica, abbiamo scelto $p = min \lbrace m,n \rbrace = m$ e quindi avevamo $n-m$ colonne di $\Sigma$ nulle, successivamente abbiamo notato che di questi $p = m$ \emph{valori singolari} soltanto i primi $r$ sono $\neq 0$ e pertanto abbiamo costruito la \emph{decomposizione SVD} della matrice $A$ come indicato dalla ($A.1$).
+\section{Forma bilineare}
+Sia $A \in \mathbb{R}^{m \times n}$ matrice \emph{obesa} con $m<n$, $\underline{x} \in \mathbb{R}^m$, $\underline{y} \in \mathbb{R}^n$, otteniamo:
+\begin{itemize}
+	\item il risultato dell'operazione $\underline{x}^TA\,\underline{y}$ è uno scalare.
+	\item tutti i termini sono di secondo grado
+	\item si dice \emph{"bilineare"} perchè è lineare rispetto alle componenti di $\underline{x}$ e $\underline{y}$
+\end{itemize}
+Ci chiediamo come sono fatti gli Jacobiani della forma bilineare $\underline{x}^TA\,\underline{y}$ rispetto ad $\underline{x}$ e $\underline{y}$. Se consideriamo $m = 2, n = 3$, otteniamo: $A\in\mathbb{R}^{2x3}$, $\underline{x}\in\mathbb{R}^2$, $\underline{y}\in\mathbb{R}^3$, ovvero:
+\begin{equation*}
+	A =
+	\begin{bmatrix}
+		a_{11} & a_{12} & a_{13} \\
+		a_{21} & a_{22} & a_{23} \\
+	\end{bmatrix}
+	\qquad
+	\underline{x} =
+	\begin{bmatrix}
+		x_1 \\
+		x_2 \\
+	\end{bmatrix}
+	\qquad
+	\underline{y} = 
+	\begin{bmatrix}
+		y_1 \\
+		y_2 \\
+		y_3 \\
+	\end{bmatrix}
+\end{equation*}
+pertanto, la forma bilineare risulta:
+\begin{equation*}
+	\underline{x}^TA\,\underline{y} =
+	\begin{bmatrix}
+		x_1 & x_2
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} & a_{12} & a_{13} \\
+		a_{21} & a_{22} & a_{23} \\
+	\end{bmatrix}
+	\begin{bmatrix}
+		y_1 \\
+		y_2 \\
+		y_3 \\
+	\end{bmatrix}
+	= a_{11}x_1y_1 + a_{21}x_2y_1 + a_{12}x_1y_2 + a_{22}x_2y_2 + a_{13}x_1y_3 + a_{23}x_2y_3
+\end{equation*}
+Per calcolare lo Jacobiano della forma bilineare rispetto a $\underline{x}$, calcolo la derivata parziale delle componenti:
+\begin{equation*}
+	\frac{\partial(\underline{x}^TA\,\underline{y})}{\partial x_1} = a_{11}y_1 + a_{12}y_2 + a_{13}y_3 = 
+	\begin{bmatrix}
+		y_1 & y_2 & y_3	
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} \\
+		a_{12} \\
+		a_{13} \\
+	\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+	\frac{\partial(\underline{x}^TA\,\underline{y})}{\partial x_2} = a_{21}y_1 + a_{22}y_2 + a_{23}y_3 = 
+	\begin{bmatrix}
+		y_1 & y_2 & y_3	
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{21} \\
+		a_{22} \\
+		a_{23} \\
+	\end{bmatrix}
+\end{equation*}
+Notiamo che è presente la trasposta della matrice $A$, scriviamo i due Jacobiani, (quello rispetto a $\underline{y}$ con procedimento analogo al primo):
+\begin{equation*}
+	\frac{\partial(\underline{x}^TA\,\underline{y})}{\partial \underline{x}} =
+	\begin{bmatrix}
+		y_1 & y_2 & y_3
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} & a_{21} \\
+		a_{12} & a_{22} \\
+		a_{13} & a_{23} \\
+	\end{bmatrix}
+	= \underline{y}^TA^T
+	;\qquad
+	\frac{\partial(\underline{x}^TA\,\underline{y})}{\partial \underline{y}} = \underline{x}^TA
+\end{equation*} 
+
+\section{Forma quadratica}
+Sia $A\in\mathbb{R}^{n \times n}$, $A = A^T$, $\underline{x}\in\mathbb{R}^n$, la forma quadratica è così formata: $\frac{1}{2}\underline{x}^TA\,\underline{x}$. Quindi, considerando $n = 2$, otteniamo: 
+\begin{equation*}
+	\underline{x} = 
+	\begin{bmatrix}
+		x_1 \\
+		x_2 \\
+	\end{bmatrix}
+	\in\mathbb{R}^2 \qquad
+	A = 
+	\begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22} \\
+	\end{bmatrix}
+	\in\mathbb{R}^{2x2} \qquad
+	A = A^T \, \Rightarrow a_{12} = a_{22}
+\end{equation*}
+scriviamo la forma quadratica:
+\begin{equation*}
+	\frac{1}{2}\underline{x}^TA\,\underline{x} = \frac{1}{2}
+	\begin{bmatrix}
+		x_1 & x_2 \\
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{12} & a_{22} \\
+	\end{bmatrix}
+	\begin{bmatrix}
+		x_1 \\
+		x_2 \\
+	\end{bmatrix}
+	= \frac{1}{2} \bigl[a_{11}x_{1}^{2} + 2a_{12}x_1x_2 + a_{22}x_{2}^2\, \bigr]
+\end{equation*}
+Come prima, calcoliamo lo Jacobiano:
+\begin{equation*}
+	\frac{\partial (\frac{1}{2}\underline{x}^TA\,\underline{x})}{\partial \underline{x}} = 
+	\begin{bmatrix}
+		a_{11}x_1 + a_{12}x_2 & a_{12}x_1 + a_{22}x_2
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		x_1 & x_2
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{12} & a_{22} \\
+	\end{bmatrix}
+	= \underline{x}^TA
+\end{equation*}
+
+\section{Matrici definite}
+Sia $A \in\mathbb{R}^{n \times n}$, analizzando la forma quadratica, possiamo capire se la matrice $A$ è definita positiva o negativa:
+\begin{itemize}
+	\item La matrice $A$ è \emph{definita positiva} se:
+	\begin{equation}
+		\frac{1}{2}\underline{x}^TA\,\underline{x} > 0 \qquad\forall\underline{x}\in\mathbb{R}^n,\; \underline{x} \neq 0
+	\end{equation}
+	\item La matrice $A$ è \emph{definita negativa} se:
+	\begin{equation}
+		\frac{1}{2}\underline{x}^TA\,\underline{x} < 0 \qquad\forall\underline{x}\in\mathbb{R}^n,\; \underline{x} \neq 0
+	\end{equation}
+	\item Se le disuguaglianze non sono strette, allora si parla di \emph{semidefinita positiva} e \emph{semidefinita negativa}.
+\end{itemize}
+
+\section{Complemento ortogonale}
+Sia $S \subseteq V$ un sottospazio di un dato spazio $V$, definiamo il \emph{complemento ortogonale} di $S$ in $V$, e lo indichiamo con $S^{\perp}$, come il sottoinsieme di $V$ definito da
+\begin{equation}
+	S^{\perp} := \lbrace \underline{v} \in V\; t.c.\; \underline{v} \cdot \underline{s} = 0 \quad \forall\underline{s} \in S  \rbrace
+\end{equation}
+in pratica il complemento ortogonale di un sottospazio è il sottoinsieme di tutti i vettori di $V$ ortogonali a tutti i vettori di $S$.
+
+\section{Trasformata di Laplace}
+La trasformata di Laplace è utile nello studio dei sistemi dinamici lineari. Essa è definita come segue.
+\paragraph{}
+Sia $f(t)$ \emph{causale}, ($f(t) = 0$ per $t<0$), definiamo la sua trasformata con il seguente integrale
+\begin{equation}
+	F(s) = \mathcal{L}[f(t)] = \int_0^{\infty} f(t) e^{-st} dt
+\end{equation}
+con $s \in \mathbb{C}$, questa trasformata ci aiuta a trasformare le equazioni differenziali in equazioni algebriche semplici da risolvere. Rende $f(t) \in \mathbb{R}$ una funzione nel mondo complesso $F(s) \in \mathbb{C}$ 
+
+Enunciamo le proprietà:
+\begin{enumerate}
+	\item Linearità:
+	\begin{equation}
+		\mathcal{L}[\alpha f(t) + \beta g(t)] = \alpha F(s) + \beta G(s)
+	\end{equation}
+	\item Teorema della traslazione nel tempo:
+	\begin{equation}
+		\mathcal{L}[f(t - \alpha)] = e^{-s \alpha} F(s)
+	\end{equation}
+	\item Teorema dell'integrale nel tempo:
+	\begin{equation}
+		\mathcal{L} \Biggl[ \int_0^t f(\tau) d \tau \Biggr] = \frac{F(s)}{s}
+	\end{equation}
+	\item Teorema della derivata nel tempo:
+	\begin{equation}
+		\frac{d f(t)}{dt} = sF(s)
+	\end{equation}
+	\item Teorema della traslazione in frequenza:
+	\begin{equation}
+		\mathcal{L}[f(t) e^{\alpha t}] = F(s - \alpha )
+	\end{equation}
+	\item Teorema della derivata in frequenza:
+	\begin{equation}
+		\mathcal{L}[t f(t)] = - \frac{d F(s)}{ds}
+	\end{equation}
+	\item Prodotto di convoluzione:
+	\begin{equation}
+		\mathcal{L}[f(t) \circledast g(t)] = G(s) F(s)
+	\end{equation}
+\end{enumerate}
+
+Vediamo qualche trasformata di segnali notevoli:
+\begin{itemize}
+	\item Gradino: $1(t) \longleftrightarrow 1/s $
+	\item Rampa: $t\cdot 1(t) \longleftrightarrow 1/s^2$
+	\item Esponenziale: $e^{\alpha t}1(t) \longleftrightarrow 1/(s - \alpha)$
+	\item Sinusoide: $\sin(\omega_0 t) 1(t) \longleftrightarrow \omega_0/ (s^2 + \omega_0^2)$
+	\item Cosinusoide: $\cos(\omega_0 t) 1(t) \longleftrightarrow s/ (s^2 + \omega_0^2)$
+	\item Esponenziale e monomio: $t^n e^{\alpha t} 1(t) \longleftrightarrow n! / (s-a)^{n+1}$
+\end{itemize}
+\paragraph{}
+Di notevole importanza, risultano i seguenti teoremi,
+\begin{itemize}
+	\item Il teorema del valore iniziale (TVI):
+	\begin{equation}
+		\lim_{t \to 0} f(t) = \lim_{s \to +\infty} sF(s)
+	\end{equation}
+	\item Il teorema del valore finale (TVF):
+	\begin{equation}
+		\lim_{t \to +\infty} f(t) = \lim_{s \to 0} sF(s)
+	\end{equation}
+\end{itemize}
+entrambi valgono \emph{sse} il $\lim_{s \to 0}sF(s)$ è finito ed esiste, inoltre $F(s)$ deve avere i poli con la parte reale $\leqslant 0$, e quelli nulli al massimo con una sola moltiplicità.
