@@ -1,0 +1,48 @@
+\documentclass[a4paper]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel} 
+\usepackage{amsfonts} %matematica
+\usepackage{amsmath} %matematica
+\usepackage{amssymb} %simboli matematica
+\usepackage{amsthm} %teoremi matematici
+\usepackage{tikz}
+
+\usepackage{matlab-prettifier}
+
+\theoremstyle{definition}
+\newtheorem*{Esercizio}{Esercizio}
+\newtheorem*{Definizione}{Definizione}
+\newtheorem*{Proposizione}{Proposizione}
+
+\usepackage{booktabs} %tabelle
+\usepackage{graphicx} %figure
+\usepackage{capt-of} %caption
+\graphicspath{{Immagini/}} %percorso delle figure
+
+\title{Robotica Industriale}
+\author{Angelo D'Amante}
+\date{A.A. 2018/2019}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{Capitoli/ch1_Cinematica_dei_robot}
+\input{Capitoli/ch2_Il_metodo_di_Denavit_Hartenberg}
+\input{Capitoli/ch3_Cinematica_inversa}
+\input{Capitoli/ch4_Cinematica_differenziale}
+\input{Capitoli/ch5_Inversione_della_cinematica_differenziale}
+\input{Capitoli/ch6_Statica}
+\input{Capitoli/ch7_Azionamenti}
+\input{Capitoli/ch8_Dinamica_dei_robot}
+\input{Capitoli/ch9_Controllo_del_moto}
+\input{Capitoli/ch10_Pianificazione_di_traiettorie}
+
+\appendix
+
+\input{Capitoli/chA_Richiami_algebrici}
+\input{Capitoli/chB_Sistemi_dinamici}
+\input{Capitoli/chC_Meccanica_dei_rigidi}
+
+\end{document}
