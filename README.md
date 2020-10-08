@@ -1,4 +1,4 @@
-# robotica_industriale
+# Dispense di Robotica Industriale
 Appunti presi nel corso di Robotica Industriale dell'università degli studi di Firenze.
 
 ## Info
